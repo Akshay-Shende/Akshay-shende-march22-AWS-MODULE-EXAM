@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="jquery-3.5.1.min.js"></script>
+	<script>//our scrip will come here 
+
+
+
+		$(document).ready(function () {
+			console.log("no more sins");
+			$("#bookid").blur(function () {
+				input = { bookid: $("#bookid").val() }
+				console.log("jquery works");
+				//alert("jquery works")
+
+				$.ajax({
+					type: "get",
+					dataType: "json",
+					url: "http://localhost:8081/ssel",
+					data: input,
+					success: function (data) {
+						if (data.status === true) {
+							$("#bookname").val(data.bookdetails.bookname);
+							$("#bookprice").val(data.bookdetails.price);
+							$("#msg").text("book id is found")
+						}
+						else {
+							$("#msg").text("book id  is not found")
+						}
+						//alert("success data");
+
+					},
+					error: function (e) {
+						console.log('we have trouble ' + error);
+					}
+				});
+			});
+
+		});
+
+		//==============================Update====================
+
+
+		$(document).ready(function () {
+			console.log("no more sins");
+			$("#update").click(function () {
+				input = { bookid: $("#bookid").val(), bookname: $("#bookname").val(), price: $("#bookprice").val() }
+				console.log("update button work");
+				//alert("jquery works")
+
+				$.ajax({
+					type: "get",
+					dataType: "json",
+					url: "http://localhost:8081/update",
+					data: input,
+					success: function (data) {
+						// if(data.status===true){
+						// $("#bookname").val(data.bookdetails.bookname);
+						// $("#bookprice").val(data.bookdetails.price);
+						// $("#msg").text("book id is found")
+						// }
+						// else{
+						// 	$("#msg").text("book id  is not found")
+						// }
+						// //alert("success data");
+
+					},
+					error: function (e) {
+						console.log('we have trouble ' + error);
+					}
+				});
+			});
+
+		});
+
+
+
+	</script>
+
+</head>
+
+<body>
+	<input type="text" id="bookid" placeholder="Enter book id"> <span id="msg">messgae</span> <br> <br>
+	<input type="text" id="bookname" placeholder="enter book name"> <br> <br>
+	<input type="text" id="bookprice" placeholder="Enter Book Price"> <br> <br>
+
+	<button id="update">Update Book</button>
+</body>
+
+</html>
